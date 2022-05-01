@@ -1,9 +1,5 @@
 <template>
   <div class="home-warp">
-    home
-    <hr />
-    <button @click="addCount(10)">+1</button>
-    <p>{{ $store.state.count }}</p>
   </div>
 </template>
 

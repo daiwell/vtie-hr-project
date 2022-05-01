@@ -3,7 +3,8 @@ import App from "./App.vue"
 
 import router from './router/index.js'
 import store  from "./store";
-import axios from 'axios'
+
+import './styles/index.less'
 
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
