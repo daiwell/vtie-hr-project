@@ -61,7 +61,7 @@ export default {
           trigger: "change",
         },
         agree: {
-          validator: (rule, value, callback) => {
+          validator: (rule, value, callback) => { //自定義規則屬性規則
             if (value) {
               //驗證通過即通過驗證
               callback();
