@@ -38,6 +38,7 @@
 
 <script>
 import { loginApi } from "@/api/user.js";
+import {setItem} from '@/utils/storage.js'
 export default {
   data() {
     return {
@@ -93,12 +94,16 @@ export default {
       this.loginLoading = true;
       try {
         const { data } = await loginApi(this.userInfo);
-        console.log(data);
+        setItem('userInfo',data.data);
+        this.$store.commit('setUserToken',data.data)
         // 登录成功
         this.$message({
           message: "登录成功",
           type: "success",
         });
+        this.$router.push({
+          name:'home'
+        })
       } catch (error) {
         this.$message.error("登录失败，手机号或验证码错误");
       }
