@@ -19,14 +19,15 @@
       <i class="el-icon-folder"></i>
       <span slot="title">内容管理</span>
     </el-menu-item>
+     <el-menu-item index="publish">
+      <i class="el-icon-edit-outline"></i>
+      <span slot="title">发布文章</span>
+    </el-menu-item>
     <el-menu-item index="image">
       <i class="el-icon-folder-opened"></i>
       <span slot="title">素材管理</span>
     </el-menu-item>
-    <el-menu-item index="publish">
-      <i class="el-icon-edit-outline"></i>
-      <span slot="title">发布文章</span>
-    </el-menu-item>
+   
     <el-menu-item index="comment">
       <i class="el-icon-chat-line-round"></i>
       <span slot="title">评论管理</span>

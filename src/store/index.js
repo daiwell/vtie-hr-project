@@ -5,7 +5,6 @@ import { getItem } from '@/utils/storage'
 
 //从本地存储中获取用户信息
 let TOKEN =getItem('userInfo') ? getItem('userInfo').token : null; 
-console.log(TOKEN);
 Vue.use(Vuex)
 
 export default new Vuex.Store({

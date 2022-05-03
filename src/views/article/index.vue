@@ -37,7 +37,6 @@
               :label="curChannel.name"
               :value="curChannel.id"
             ></el-option>
-            <!-- <el-option label="区域二" value="beijing"></el-option> -->
           </el-select>
         </el-form-item>
         <el-form-item label="日期">
@@ -111,6 +110,14 @@
               icon="el-icon-edit"
               type="primary"
               circle
+              @click="
+                $router.push({
+                  name: 'publish',
+                  query: {
+                    id: scope.row.id,
+                  },
+                })
+              "
             ></el-button>
             <el-button
               circle
@@ -140,7 +147,7 @@
 </template>
 
 <script>
-import to from 'await-to-js'
+import to from "await-to-js";
 import {
   getArticles,
   getArticleChanels,
@@ -174,7 +181,7 @@ export default {
       pageSize: 20,
       selectStatus: null,
       channels: [],
-      page:1//当前分页器的页码
+      page: 1, //当前分页器的页码
     };
   },
   created() {
@@ -209,18 +216,18 @@ export default {
       this.loading = false;
     },
     async loadChannels() {
-      const [err,data] = await to(getArticleChanels()) 
+      const [err, data] = await to(getArticleChanels());
       this.channels = data.data.data.channels;
-      if(err){
-       console.warn(err);
+      if (err) {
+        console.warn(err);
       }
     },
     //删除当前文章
     async onDeleteArticle(articleId) {
       try {
         await deleteArticle(articleId);
-      let ret  =await this.loadArticle(this.page)
-      console.log(ret);
+        let ret = await this.loadArticle(this.page);
+        console.log(ret);
       } catch (err) {
         console.log(err);
       }

@@ -5,8 +5,8 @@ import Login from '@/views/login/index.vue'
 const Home = () => import('@/views/home/index.vue')
 const Layout = () => import('@/views/layout/index.vue')
 const Article = () => import('@/views/article/index.vue')
+const Publish = () => import('@/views/publish/index.vue')
 
-console.log(store.state.userToken);
 // 注册路由插件
 Vue.use(VueRouter)
 
@@ -31,6 +31,11 @@ const routes = [
                 path: '/article', 
                 name: 'article',
                 component: Article
+            },
+            {
+                path: '/publish', 
+                name: 'publish',
+                component: Publish
             },
         ]
     },
