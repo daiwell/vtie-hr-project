@@ -36,7 +36,7 @@
       <i class="el-icon-user-solid"></i>
       <span slot="title">粉丝管理</span>
     </el-menu-item>
-     <el-menu-item index="setting">
+     <el-menu-item index="settings">
       <i class="el-icon-s-tools"></i>
       <span slot="title">个人设置</span>
     </el-menu-item>
