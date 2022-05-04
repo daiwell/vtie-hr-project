@@ -227,7 +227,6 @@ export default {
       try {
         await deleteArticle(articleId);
         let ret = await this.loadArticle(this.page);
-        console.log(ret);
       } catch (err) {
         console.log(err);
       }

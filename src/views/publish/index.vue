@@ -11,19 +11,25 @@
     <el-card class="form-card-container">
       <!-- form 表单 -->
 
-      <el-form ref="form" v-model="formRules" label-width="80px" v-loading="loading">
-        <el-form-item label="标题">
+      <el-form
+        ref="refForm"
+        :model="articleInfo"
+        :rules="rules"
+        label-width="80px"
+        v-loading="loading"
+      >
+        <el-form-item label="标题" prop="title">
           <el-input v-model="articleInfo.title"></el-input>
         </el-form-item>
-        <el-form-item label="内容">
+        <el-form-item label="内容" prop="content">
           <el-tiptap
             lang="zh"
             v-model="articleInfo.content"
             :extensions="extensions"
-            height='400px'
+            height="300px"
           ></el-tiptap>
         </el-form-item>
-        <el-form-item label="活动区域">
+        <el-form-item label="活动区域" prop="channel_id">
           <el-select
             v-model="articleInfo.channel_id"
             placeholder="请选择文章频道"
@@ -65,7 +71,7 @@ import {
   getArticle,
   uploadImage,
 } from "@/api/article.js";
-import { ElementTiptap } from 'element-tiptap';
+import { ElementTiptap } from "element-tiptap";
 import {
   Doc,
   Text,
@@ -112,7 +118,7 @@ export default {
         new Heading({ level: 3 }),
         new Bold({ bubble: true }), // 在气泡菜单中渲染菜单按钮
         new Image({
-          urlPattern:function(file){
+          urlPattern: function (file) {
             console.log(file);
           },
         }),
@@ -132,7 +138,29 @@ export default {
       ],
       channels: [],
       loading: false,
-      formRules:null
+      rules: {
+        title: [
+          { required: true, message: "请输入文章标题", trigger: "blur" },
+          {
+            min: 5,
+            max: 30,
+            message: "长度在 5 到 30 个字符",
+            trigger: "blur",
+          },
+        ],
+        content: [
+          {
+            validator: (rule, value, callback) => {
+              if (value == "<p></p>") {
+                callback(new error("请输入文章内容"));
+              } else {
+                callback();
+              }
+            },
+          },
+          { required: true, message: "请输入文章内容", trigger: "blur" },
+        ],
+      },
     };
   },
   created() {
@@ -142,33 +170,38 @@ export default {
     }
   },
   methods: {
-    async onPublish(draft = false) {
-      //draft 默认是false 不存入草稿
-      this.loading = true;
-      const { id } = this.$route.query;
-      try {
-        //增加文章接口
-        if (id) {
-          //根据传入的id判断是否是更新文章还是编辑发布新文章
-          // 更新文章接口
-          await updateArticle(id, this.articleInfo, draft);
-          this.$router.push("/article");
-        } else {
-          await addArticle(this.articleInfo, draft);
+    onPublish(draft = false) {
+      this.$refs["refForm"].validate(async (valid) => {
+        if (!valid) {
+          return false;
         }
+        //draft 默认是false 不存入草稿
+        this.loading = true;
+        const { id } = this.$route.query;
+        try {
+          //增加文章接口
+          if (id) {
+            //根据传入的id判断是否是更新文章还是编辑发布新文章
+            // 更新文章接口
+            await updateArticle(id, this.articleInfo, draft);
+            this.$router.push("/article");
+          } else {
+            await addArticle(this.articleInfo, draft);
+          }
 
-        this.$message({
-          type: "success",
-          message: `操作成功`,
-        });
-      } catch (error) {
-        console.log(error);
-        this.$message({
-          type: "error",
-          message: "操作失败",
-        });
-      }
-      this.loading = false;
+          this.$message({
+            type: "success",
+            message: `操作成功`,
+          });
+        } catch (error) {
+          console.log(error);
+          this.$message({
+            type: "error",
+            message: "操作失败",
+          });
+        }
+        this.loading = false;
+      });
     },
     //加载频道数据
     async loadChannels() {

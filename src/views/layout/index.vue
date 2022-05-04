@@ -55,9 +55,7 @@ export default {
   methods: {
     async loadUserProfile() {
       const { data } = await getUserProfile();
-      console.log(data);
       this.userInfo = data.data;
-    //   console.log(data.data);
     },
     outLogin(){
          this.$confirm('此操作将退出登录, 是否继续?', '提示', {

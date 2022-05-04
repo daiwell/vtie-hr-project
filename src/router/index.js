@@ -6,6 +6,8 @@ const Home = () => import('@/views/home/index.vue')
 const Layout = () => import('@/views/layout/index.vue')
 const Article = () => import('@/views/article/index.vue')
 const Publish = () => import('@/views/publish/index.vue')
+const Image = () => import('@/views/image/index.vue')
+
 
 // 注册路由插件
 Vue.use(VueRouter)
@@ -36,6 +38,11 @@ const routes = [
                 path: '/publish', 
                 name: 'publish',
                 component: Publish
+            },
+            {
+                path: '/image', 
+                name: 'image',
+                component: Image
             },
         ]
     },
