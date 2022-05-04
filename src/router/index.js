@@ -7,6 +7,8 @@ const Layout = () => import('@/views/layout/index.vue')
 const Article = () => import('@/views/article/index.vue')
 const Publish = () => import('@/views/publish/index.vue')
 const Image = () => import('@/views/image/index.vue')
+const Comment = () => import('@/views/comment/index.vue')
+
 
 
 // 注册路由插件
@@ -43,6 +45,11 @@ const routes = [
                 path: '/image', 
                 name: 'image',
                 component: Image
+            },
+            {
+                path: '/comment', 
+                name: 'comment',
+                component: Comment
             },
         ]
     },
