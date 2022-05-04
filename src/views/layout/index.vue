@@ -1,14 +1,21 @@
 <template>
   <el-container class="layout_container">
-      <!--  侧边栏-->
+    <!--  侧边栏-->
     <el-aside width="auto" class="aside">
       <app-aside class="app_aside" :isCollapse="isCollapse" />
     </el-aside>
-      <!--/  侧边栏-->
+    <!--/  侧边栏-->
     <el-container>
       <el-header class="header">
         <div class="left-container">
-          <i :class="{'el-icon-s-fold':!isCollapse,'el-icon-s-unfold':isCollapse,'icon':true}" @click="isCollapse=!isCollapse"></i>
+          <i
+            :class="{
+              'el-icon-s-fold': !isCollapse,
+              'el-icon-s-unfold': isCollapse,
+              icon: true,
+            }"
+            @click="isCollapse = !isCollapse"
+          ></i>
           <span class="title">快资讯后台管理系统</span>
         </div>
         <div class="right-container">
@@ -20,7 +27,7 @@
           ></el-image>
           <el-dropdown>
             <span class="el-dropdown-link">
-              {{userInfo.name}}
+              {{ userInfo.name }}
               <i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -31,9 +38,7 @@
         </div>
       </el-header>
       <el-main class="main">
-
         <router-view></router-view>
-
       </el-main>
     </el-container>
   </el-container>
@@ -49,7 +54,7 @@ export default {
   data() {
     return {
       userInfo: {},
-      isCollapse:false //侧边栏展示状态
+      isCollapse: false, //侧边栏展示状态
     };
   },
   methods: {
@@ -57,26 +62,27 @@ export default {
       const { data } = await getUserProfile();
       this.userInfo = data.data;
     },
-    outLogin(){
-         this.$confirm('此操作将退出登录, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
+    outLogin() {
+      this.$confirm("此操作将退出登录, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
           this.$message({
-            type: 'success',
-            message: '退出成功'
+            type: "success",
+            message: "退出成功",
           });
-                 localStorage.removeItem('userInfo')
-        this.$router.push('/login')
-        }).catch(() => {
+          localStorage.removeItem("userInfo");
+          this.$router.push("/login");
+        })
+        .catch(() => {
           this.$message({
-            type: 'info',
-            message: '已取消退出'
-          });          
+            type: "info",
+            message: "已取消退出",
+          });
         });
- 
-    }
+    },
   },
   created() {
     this.loadUserProfile();
@@ -104,7 +110,7 @@ export default {
     padding: 0px 10px;
     box-sizing: border-box;
     align-items: center;
-    border-bottom: 1px solid whitesmoke ;
+    border-bottom: 1px solid whitesmoke;
     .left-container {
       display: flex;
       justify-content: center;
