@@ -47,7 +47,7 @@
 <script>
 import AppAside from "./components/app-aside.vue";
 import { getUserProfile } from "@/api/user.js";
-
+import globalBus from '@/utils/global-bus.js'
 export default {
   components: { AppAside },
   name: "layoutIndex",
@@ -56,6 +56,11 @@ export default {
       userInfo: {},
       isCollapse: false, //侧边栏展示状态
     };
+  },
+  mounted(){
+    globalBus.$on('update-user',(userInfo)=>{
+      this.userInfo=userInfo;
+    })
   },
   methods: {
     async loadUserProfile() {
